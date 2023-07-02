@@ -7,11 +7,45 @@ This project was the 4th lab of my Systems I (CSE2421) course at OSU [hence why 
 
 The point of this project was to create our own implementation of Stack and Queue. Stack.c and queue.c both contain my own implementation of each. However, there were two implementations for both. The first implementation of Stack and Queue were done with nodes, the second implementation of both were done with arrays.
 
+This project uses command-line arguments, so it will require you to navigate to the specific folder destination that you have this installed. See 'How to Run for more' This should run natively on Linux based machines that have GNU / Make already [Windows users without these should check out the section 'Installation for Windows']
 
-- The original idea, the main file and the header for this project was supplied by Braeden Jeske [https://github.com/braedenjeske]. I took the main file that was supplied by Braeden and broke it into two parts for easier testing.
-# Installation
 
-## This was written in ANSI-C [c-89] with specific flags. I'll provide a short explanation taken from the gnu.org website (link below)
+
+# How to run
+- Neither main will include checks for non positive integer values, so if you enter these you'll more than likely segfault or have some undefined behavior
+- Some functions include asserts (primarily dequeue/pop) to prevent certain edge cases, but not all [was not a requirement for this lab]
+- Includes a clock timer that represents the total CPU_TIME for running [may not be the best way to test for efficiency]
+- The optional step below refers to checking for leaks as this project required the use of malloc to allocate memory 
+- May require the use of ./[executable] in order to run (depends on system and privilages)
+- The program is written using regular integer values, so integers must be between [0, 2^31]
+```
+    1. Compile both main executable files and clean the object file [alternatively use make -r [queue_main] or make -r [stack_main] to install individually]
+        $ make -r 
+    2. Run by calling the specific file with command line arguments included, where x is a positive integer [the amount of entries to be pushed/queued]
+        $ queue_main x 
+        $ stack_main x
+    
+    Optional[Linux]: Check for leaks - x is a positive integer [the amount of entries to be pushed/queued]
+        $ valgrind --leak-check = yes queue_main x
+        $ valgrind --leak-check = yes stack_main x 
+
+```
+
+### Example input/output (using windows and queue)
+```
+    Input:
+        C:/Users/UserName/StackAndQueue> ./queue_main 123456789
+    Output:
+        Testing Queue1 with 123456789 entries
+        Ended with 0 errors
+        Clock Time reads: 6.510000 seconds
+        Testing Queue2 with 123456789 entries
+        Clock Time reads: 1.115000 seconds
+```
+    
+
+
+## This was written in ANSI-C [c89/c90] with specific flags. I'll provide a short explanation taken from the gnu.org website (link below)
 ```
     -ansi:                              Turns off certain features of GCC that are incompatible with ISO C89/90
 
@@ -28,24 +62,10 @@ The point of this project was to create our own implementation of Stack and Queu
     To read more about these flags use 
         [https://gcc.gnu.org/onlinedocs/gcc/C-Dialect-Options.html]
         [https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html]
-        [https://www.intel.com/content/www/us/en/docs/cpp-compiler/developer-guide-reference/2021-8/wreturn-type.html
+        [https://www.intel.com/content/www/us/en/docs/cpp-compiler/developer-guide-reference/2021-8/wreturn-type.html]
         [https://www.rapidtables.com/code/linux/gcc.html]
 ```
 
-#### Installing the executable on Linux
-
-```linux
-  Ensure the makefile is included in the main directory. This 
-  
-  To install both executables and clean up the .o files
-  $make -r 
-  To install only the stack verison
-  $make -r stack_main
-  To install only the queue verison
-  $make -r queue_main
-  To clean any .o files
-  #make -r clean
-```
 
 #### Installation for windwows [requires these steps, then you can refer to the linux installation, just use a terminal/vscc to compile]
 ```
@@ -83,7 +103,5 @@ for chocolatey                      https://blog.chocolatey.org/2016/03/celebrat
         - make -verison
 ```
 
-
-
-
-    
+# Aknowledgements
+- The original idea, the main file and the header for this project was supplied by Braeden Jeske [https://github.com/braedenjeske]. I took the main file that was supplied by Braeden and broke it into two parts for easier testing.
