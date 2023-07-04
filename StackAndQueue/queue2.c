@@ -13,7 +13,7 @@
 /* Checks if the given pointer is null */
 static void check_null(void *queue_ptr);
 
-/*  Checks if the array needs to be doubled, and then doubles the array if so 
+/*  Checks if the array needs to be doubled, and then doubles the array if so.
     @param - **q2_ptr - Stack pointer that points at the stack being modified
 */
 static void double_size(Queue2 *q2_ptr);
@@ -22,7 +22,19 @@ static void double_size(Queue2 *q2_ptr);
     @param - **q2_ptr - Stack pointer that points at the stack being modified
 */
 static void halve_size(Queue2 *q2_ptr);
+
+/*  copies the entries from the old entries into the new entries 
+    @param new_entries - the new array that will hold all the old entries without the junk
+    @param old_entries - the old array with the junk values
+    @param start - the current front of the array
+    @param stop - either the length of array + 1 for doubling, or new_size for halving
+    @param old_size, the old size of the array
+*/
+static void copy(int *new_entries, int *old_entries, int start, int stop, int old_size);
+
 /* "private" function definition */
+
+
 static void check_null(void *ptr) {
         if (ptr == NULL) {
             printf("Could not allocate memory for queue. Quitting program..");
@@ -30,58 +42,49 @@ static void check_null(void *ptr) {
         }
 }
 
-static void double_size(Queue2 *q2_ptr) {
-    /* set up variables */
-    int arr_length = q2_ptr->length;
-    int arr_size = q2_ptr->arrSize;
-    int *new_arr; /*if needed*/
-    /* may just do this in the other func*/
-    if (arr_length == arr_size) {
-        int i, j = 0;
-        int new_size = arr_size *= 2; /* double size */
-        new_arr = (int*)malloc(new_size * sizeof(int));
-        check_null(new_arr);
-        for (i = q2_ptr->curFront; i < arr_length; i++, j++) {
-            /*  starting at the current front, transfer all 
-                the entries[currFront, arr_length] to new_arr[0, arr_length] */
-            new_arr[j] = q2_ptr->entries[i];
-        }
-        /* arr_length shouldn't need modified, updating new position of front to pos 0*/
-        q2_ptr->curFront = 0;
-        q2_ptr->arrSize = new_size;
-        /* Free old entries and update to the new entries made */
-        free(q2_ptr->entries);
-        q2_ptr->entries = NULL;
-        q2_ptr->entries = new_arr;
+static void copy(int *new_entries, int *old_entries, int start, int stop, int old_size) {
+    int i, y = start;
+    for (i = 0; i < stop; i++) {
+        /* Same concept as enqueue/dequeue. 
+            y % old_size will give all the values on the left and right of where the starting
+            position is based on if y is greater than or less than the old_size
+        */
+        int j = (y % old_size); 
+        new_entries[i] = old_entries[j];
+        y++;
     }
-    
+}
+
+static void double_size(Queue2 *q2_ptr) {
+    /* create the new array */
+    int new_size = (q2_ptr->arrSize * 2);
+    int *new_entries = (int*)malloc(new_size * sizeof(int));
+    /* copy the old entries to the new entries */
+    copy(new_entries, q2_ptr->entries, q2_ptr->curFront, q2_ptr->length + 1, q2_ptr->arrSize);
+    /* update the size, entries and curFront (because it's at the beginning now)*/
+    q2_ptr->arrSize = new_size;
+    /* free the old entries pointer */
+    free(q2_ptr->entries);
+    q2_ptr->entries = NULL;
+    /* update old entries to point at new entries*/
+    q2_ptr->entries = new_entries;
+    q2_ptr->curFront = 0;
 }
 
 static void halve_size(Queue2 *q2_ptr) {
-    /* set up variables */
-    int arr_length = q2_ptr->length;
-    int arr_size_by_four = (q2_ptr->arrSize) >> 2; /* arrsize/4 */
-    int *new_arr; /*if needed*/
-    /* check if the array's length is 1/4th that of the array's size */
-    if (MIN_SIZE <= arr_length && arr_length == arr_size_by_four) {
-        int i, j = q2_ptr->curFront;
-        int new_size = (q2_ptr->arrSize) >> 1; /* arrsize / 2 */
-        new_arr = (int*)malloc(new_size * sizeof(int));
-        check_null(new_arr);
-         /*  starting at the current front, transfer all 
-            the entries[currFront, arr_length] to new_arr[0, arr_length] */
-        for (i = 0; i < q2_ptr->length; i++, j++) {
-            new_arr[i] = q2_ptr->entries[j];
-        }
-        /* arr_length shouldn't need modified, updating new position of front to pos 0*/
-        q2_ptr->arrSize = new_size;
-        q2_ptr->curFront = 0;
-        /* Free old entries and update to the new entries made */
-        free(q2_ptr->entries);
-        q2_ptr->entries = NULL;
-        q2_ptr->entries = new_arr;
-    }
-    
+    /* create the new array */
+    int new_size = (q2_ptr->arrSize) >> 2;
+    int *new_entries = (int*)malloc(new_size * sizeof(int));
+    /* copy the old entries to the new entries */
+    copy(new_entries, q2_ptr->entries, q2_ptr->curFront, new_size, q2_ptr->arrSize);
+    /* update the size, entries and curFront (because it's at the beginning now)*/
+    q2_ptr->arrSize = new_size;
+    /* free the old entries pointer */
+    free(q2_ptr->entries);
+    q2_ptr->entries = NULL;
+    /* update old entries to point at new entries*/
+    q2_ptr->entries = new_entries;
+    q2_ptr->curFront = 0;
 }
 
 /* "public" function definitions */
@@ -112,29 +115,46 @@ Queue* newQueue2(){
 
 
 void enqueueQueue2(Queue* q, int x) {
+    /* initialize variables */
     Queue2 *q2_ptr = (Queue2*)q->vars;
-    if (q2_ptr->length == 0) {
-        /* place entry at the front */
-        q2_ptr->entries[0] = x; /* currFront already zero, no need to change */
-    } else {
-        /* place entry at the end */
-        q2_ptr->entries[q2_ptr->length] = x;
+    int curr_front = q2_ptr->curFront, curr_length = q2_ptr->length;
+    int curr_size = q2_ptr->arrSize, index;
+     /*  Explanation:
+        If the the sum of current front + current length is <  size
+        then sum % mod > curr_front [new entry goes to the right]
+        but if the sum of current front + current length is >= size
+        and length != size (or length % size != 1)
+        [new entry goes on the left]
+    */
+    index = (curr_front + curr_length) % curr_size;
+    q2_ptr->entries[index] = x;
+    /* check if the array should be double before continueing */
+    if (curr_length + 1 == curr_size) {
+        double_size(q2_ptr);
     }
     q2_ptr->length++;
-    double_size(q2_ptr);
 }
 
 
 int dequeueQueue2(Queue* q) {
     Queue2 *q2_ptr = (Queue2*)q->vars;
-    assert(q2_ptr->length > 0);
-    /* get data from current front entry */
+    assert(q2_ptr->length > 0); /* in case length is 0*/
+    
+    /* remove the entry from the front, decrement the length and increment the current front position */
     int r = q2_ptr->entries[q2_ptr->curFront];
-    /* curFront starts at 0 and increments as length goes down */
-    q2_ptr->curFront++; /* next entry becomes the current front */  
     q2_ptr->length--;
+    q2_ptr->curFront++;
+    
+    /* check to make sure that the length is not 0, or if the current front and arr siz are zero*/
+    if (q2_ptr->length == 0 || q2_ptr->curFront == q2_ptr->arrSize) {
+        q2_ptr->curFront = 0;
+    }
+
     /* check if the array needs halved */
-    halve_size(q2_ptr);
+    if (MIN_SIZE <= q2_ptr->length && q2_ptr->length == (q2_ptr->arrSize) >> 2) {
+        halve_size(q2_ptr);
+    }
+
     return r;
 }
 

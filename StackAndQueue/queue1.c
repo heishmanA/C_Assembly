@@ -97,18 +97,16 @@ int lengthQueue1(Queue* q) {
 
 void delQueue1(Queue* q) {
     Queue1 *q1_ptr = (Queue1*)q->vars;
-    if (q1_ptr->length > 0) {
-        /* set up for recursion */
-        q1_ptr->firstNode = q1_ptr->firstNode->next;
-        free(q1_ptr->lastNode->next);
-        q1_ptr->lastNode->next = q1_ptr->firstNode;
-        q1_ptr->length--;
-        delQueue1(q);
-    } else {
-        /* free the memory of vars and q*/
-        free(q->vars);
-        q->vars = NULL;
-        free(q);
-        q = NULL;
+    /*  Valgrind stated that my previous use of recurision was causing endefined behavior
+        so I changed it to an easier way, just dequeue all entries until length is zero
+        and then free vars and the original queue */
+    while (q1_ptr->length > 0) {
+        q->dequeue(q);
     }
+    /* free the memory of vars and q*/
+    free(q->vars);
+    q->vars = NULL;
+    free(q);
+    q = NULL;
+    
 }
