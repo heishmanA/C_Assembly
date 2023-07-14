@@ -1,0 +1,107 @@
+Aaron Heishman
+Systems I Lab 5 readme
+
+Make:
+	make -r  :  Compiles Lab5Encrypt.os to encrypt.out
+	
+	make -r run_tests : This will run both encrypt_file and run_diff to encrypt the required test file for the lab then run diff to compare with expected
+			    can subsequently just use make -r encrypt_file to encrypt the test file and make -r run_diff to compare
+	
+	
+	
+
+
+P1 
+    Q1: Before you look back at your old code for reference. Pull up the code you wrote for Part 3. 
+        Can you read and understand what it’s supposed to do?
+
+    A:  Well, I actually didn't even look back at my code to write this. I did not want to go through the process
+        I went through before. As easy as that was in C, it is not so easy in Assembly. Anyways, it was difficult 
+        to read my code, but it was not difficult to understand it for me. I think had I named my functions differently
+        then I would have really had to sit down and think about what was going on, but even then I still had to
+        individually read the lines to make sure I knew what was going on.
+
+    Q2: Based on your answer to Q1, do you think it’s important to have sufficiently readable code? Why or why not?
+
+
+    A:  Yes, I think it is incredibly important. Making code easier to read not only helps someone reading my code,
+        but it will also help me read my own code. I have worked with others on projects where there was no comments
+        to explain what they were doing. This resulted in a bunch of trial and error runs to figure out how exactly
+        the code worked. Had the code been easier to read then I would not have had to spend hours trying to figure out
+        how it works.
+    
+    Q3: Describe one key difference in the code that you had to write for Lab 2 vs the code you wrote for this lab.
+
+    A:  Well, as stated in the answer for question one, I did this completely different than Lab 2. Where in Lab 2
+        I used math to get the lab working, this time around I ended up using bit shifting. However, if that doesn't
+        count as a good answer for this lab, one key difference is how much control I was able to have over my loops.
+        By being able to use jump at any point in the code. I could freely guide the execution of my program thanks
+        to this one simple instruction
+
+    Q4: Did you choose to create any functions to help with your encryption scheme? If yes, how
+        did you choose which registers to use for local storage? If no, explain why you chose to avoid
+        creating a helper function.
+
+    A:  Yes, I did. I made one single .encrypt function. 
+        The registers that I used and how/why are as follows:
+
+        %rax:   This register was used to hold the 8th character that
+                that would be used as the "encryptor char"
+
+        %rbx:   This register was used primarily for shifting 0xFF left or right to use 'and' to get the bits of the character
+
+        %rcx:   This register was used to shift bits left and right
+
+        %rdx:   This register was used for the character to be encrypted
+
+        %rdi:   This register was used to hold the address of the array of characters
+
+        %rsi:   I just used this register for transferring the 8th character from main to the function
+
+        %r13:   This register would hold a value to be used as the "index"
+
+        %r14:   this register would hold a value to be used as "k" 
+
+        %r13 and %r14 were both used to help with bit shifting as well
+        
+        %r15:   I used this register to temporarily move a disected character to so I could reuse rdx
+
+    Q5: Run some tests and compare against your C program. Make sure that
+        the output you’re producing is the same as what your Lab 2 C program was able to produce!
+
+    A: I wasn't exactly sure if this question warranted an answer, but I ran three tests. 
+        First test: Since I already had the output of one of my tests in my lab2, I just copied that file to my lab5 folder and ran that through encryptor program and verified the outputs were correct [tc_sevench is the file I used]
+
+        Second test: For the second test I did took another filed test file I made for lab2 and ran that through my makefile and compared the outputs together as well [tc_mixed file]
+
+        Third test: For the third test I took one of the really long test cases I made (a copy of a very special movie script) and ran that through my encryptor. 
+            This test was for two purposes:
+            1. I wanted to verify that  my encryptor would actually be able to handle running through thousands of lines in a file without breaking
+            2. I wanted to see how quickly my encryptor would be able to encrypt this specific file
+    I also used the bash "diff" command to check whether or not there were any differences between the encrypted file I made for lab5 and the encrypted file created for lab2.
+
+    I'll include some screen captures of my terminal for test one and two and the diff portion for three (the file is way too long to print to terminal unlike the other two), and i'll include the files to run if you'd like to test them yourself.
+
+
+Q6: Answer this question honestly: does it feel more natural to manipulate bits in C (as you didin Lab 2) or in Assembly (as you’re doing now)? Why?
+
+    A: The honest answer is no. I am so used to being able to name my variables in higher level languages that I found myself getting lost as I was writing my code, even with my own comments. I ended up having to create a table of which registers were holding what values in them and tracing along as I did so. 
+    However, I also didn't use bit shifting for lab2, so I'm not exactly sure if my answer here is worth anything. The freedom to use jump made this easier, though.
+
+Part 2: debugging
+
+    Q1: Try setting a breakpoint on main. Did it work? Why do you think that is?
+
+    A: Yes, it did work. I actually found out why this works accidentally from a previous program. I accidentally added the '-s' flag to my program, and then had to figure out why I couldn't debug my program. Turns out this flag removes the symbol table that is generated by the compiler, which is also used in tandem with -g to help us be able to break at specific points in our program
+
+    Q2, Q3, Q4 Q5
+    A:  (Q2) I originally tried to use break encrypt.out:50, but then was being told that that doesn't work.
+        Then I was able to use break Lab5Encrypt.s:50. I didn't know that I was able to do this, so it's really nice to know. 
+        
+        (Q3) However, by running tui reg gen (or register general), my terminal gives me a layout of my general use register groups
+        (From RAX all way to R15). Albeit, everything gets kinda squirly sometimes when I run tui reg gen in the middle of using gdb 
+        (easily fixed by changed the terminal size and then adding a command)
+
+        (Q4) Yes, Albeit it won't work correctly because it's not reading in any characters due to not using 'run < file_to_encrypt '
+    
+        (Q5) Yes, other commands like run, next, continue, break, etc work on this screen. Although I learned the hard way prior to this lab that I can't use print the same way as I would if testing a c program.
