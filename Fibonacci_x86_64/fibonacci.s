@@ -136,7 +136,7 @@ check_input:
         jmp     .leave
     
     .success:
-        movq $0, %rax   # return 0 if complete
+        movq $1, %rax   # return 1 if a success
 
     .leave:
         leave
