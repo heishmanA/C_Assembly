@@ -51,12 +51,11 @@ main:
         movb    %al, (%r13, %r12, 1)    # move the lowest byte from %al to r13[count]
         incq    %r12           # increment count/index by 1
         cmpq    $8, %r12      # compare count : 8
-        jl      .read         # jump if less than (count < 7)
-        je      .encrypt      # jump if equal to (count == 7)
+        jl      .read         # jump if less than (count < 8)
+        je      .encrypt      # jump if equal to (count == 8)
     
     .encrypt:
-        # This is where the encrypt will be called, and count reset
-        # for now it's for debugging
+        # Encrypt the the 7 characters using the 8th character then loop
         pushq   %r12               # save the count
         pushq   %r13               # save the address of the the array
         movzbq  7(%r13), %rsi      # move the 8th character to the second parameter
@@ -92,13 +91,10 @@ encrypt:
     pushq   %rbp
     movq    %rsp, %rbp
     subq    $8, %rsp        # allocate space on the stack
-    
-    # RCX -> CL -> use for our variable bit for shifting
+    # Set up "variables"
     movq    %rsi, %rax      # 8th character was in param two, move to rax
-    # the array is in %r12
     movq    $0, %r13        # %r13 used as "index"
     movq    $7, %r14        # %r14 will count as "k" 
-
 
     # Encrypt each character in %rsi with a bit from the character in  %rax
     .encrypt_chars:     # start of loop
@@ -124,7 +120,6 @@ encrypt:
         je      .encrypt_chars_cont # jump if equalk to (i == 0)
         jg      .encrypt_shl_char  # jump if greater than (i > 0)
         
-
     # Shift characters [2, 6] left by one to make space for encryptor bit
     .encrypt_shl_char:
         shlq     $1, %rdx    # shift %rdx "i" bits [rdx << 1]
@@ -160,7 +155,7 @@ encrypt:
         incq    %r13        # increment "i" by 1
         decq    %r14        # decrement "k" by 1
         cmpq    $7, %r13    # check if (i < 7)
-        jl     .encrypt_chars # jump if less than (%r13 < 7)
+        jl     .encrypt_chars # jump ff less than (%r13 < 7)
 
     # leave function
     .encrypt_end:       # label for easier reading
@@ -168,4 +163,4 @@ encrypt:
         xor %rax, %rax  # zero out return to signify completion
         leave
         ret
-.size main, .-main
+.size encrypt, .-encrypt

@@ -1,14 +1,29 @@
 Aaron Heishman
 Systems I Lab 5 readme
 
-Make:
-	make -r  :  Compiles Lab5Encrypt.os to encrypt.out
-	
-	make -r run_tests : This will run both encrypt_file and run_diff to encrypt the required test file for the lab then run diff to compare with expected
-			    can subsequently just use make -r encrypt_file to encrypt the test file and make -r run_diff to compare
-	
-	
-	
+# Updated readme to include make file instructions
+    The makefile has been changed from my first submission to include the following
+
+    all: Simply just runs the compile target
+    
+    encrypt_test: Runs compile and then encrypts all three test cases
+    
+    decrypt_test: Runs encrypt test (which compiles both encrypt and decrypt)
+                  and then decrypts the encrypted files
+
+    diff_test_encrypted: runs encrypt_test and then uses diff to compare
+                         the encrypted test case file with the expected encrypted test case file
+
+    diff_test_decrypted: This one will compile both encrypt and decrypt
+                         then encrypt the test case files first, decrypt those encrypted test case files
+                         then use diff to compare the decrypted files with the test case files
+
+    lab5zip: first compiles both encrypt.s and decrypt.s to verify compilation works
+             then cleans the *.out and any remaining encrypted/decrypted files
+             then zips every single file required for the lab
+    
+    clean: removes the .out files and the encrypted/decrypted files
+    
 
 
 P1 
