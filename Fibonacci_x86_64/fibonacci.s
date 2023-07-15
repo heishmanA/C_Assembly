@@ -29,7 +29,7 @@ main:
     popq    %rsi
 
     cmpq    $0, %rax        # compare the return value of check_input to 0
-    je      .quit           # jump if equal to - %rax contains 1 (error for check_input)
+    je      .quit           # jump if equal to - %rax contains 0 (error for check_input)
     
     # if rax returns 0, convert the second argument from string to long
     # format = strloul (string, ptr to place in, base)
@@ -72,6 +72,7 @@ main:
         jmp     .fib_sequence_loop   # jump to beginning
 
     .quit:
+        xorq    %rax, %rax
         leave
         ret
 .size main, .-main
