@@ -1,6 +1,6 @@
 # General purpose makefile
 
-all: fib_pie
+all: fib_nopie #change this to fib_pie if you get an error
 
 in = fibonacci.s
 out = fib.out
