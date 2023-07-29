@@ -1,0 +1,73 @@
+Aaron Heishman
+Lab2 - Encryption - Readme
+
+Part 1 - Encryption
+
+    Q1 - Test files
+        - reqtestfile - reqexpected
+            Included these text files as they were required
+            & they helped me understand what to do when I create
+            a file to be encrypted due to the newline character at t
+            he end of the file
+        - tc_seven_ch
+            included this test case because I was under the impression that if I wrote seven characters into a file
+            those seven characters would be encrypted this test case helped me realize that I was making
+            a fatal mistake when reading in characters because the '\n' character at the end of the file :w
+            encryption and decryption file
+        - tc_mixed
+            this test case was to check that multiple characters found on multiple lines can be encrypted
+            and decrypted properly.
+        - thebesttestcase
+            I used this test case primarily for fun, but as I didn't use any actual bitwise operators, I wanted 
+            to test just how fast or slow my encryption and decryption process was. So I included a test case with 
+            over 4000 lines of code to do that. 
+       Q2 - Required test file
+            - Characters used - 1234567
+            - 12Stmnm
+            - I chose these numbers simply because when I was trying to understand why 1234367 was encrypted
+              and 1234678 was being encrypted it caused me a lot of headache. So I think this is a good test
+              because it should signify that there's an 8th newline character in the file that we don't see
+       Q3 - Modification
+            - If the strategy was foiled then you could get the character's int value then increment the
+              the value by one (or more) before encryption, and then decriment that value by the the same amount
+              when decrypoting
+       Q4 - Swapping
+            - To swap between encryption and decryption we could have a character that isn't commonly used 
+              as the first character. We could then compare that character to its decimal/binary/hex value
+              before starting the encryption/decryption process. Based on if the value exists or not would
+              decide which functions are called. 
+
+Part 2 - Decryption
+    
+    Q1 - Problem with decryption
+        - From my testing, what I've noticed is that if we have a file that ends with exactly 6 characters and 
+          those characters are not modified in any way, there's going to be a 7th character we don't see. This
+          character is the newline character found at the end of the file before the EOF. These characters end up
+          making our character count a multiple of 7, and our decryptor seems to think it should encrypt these
+          final characters
+    Q2 - Fixing Q1
+        - Rather than read the file forwards, use a pointer to get the characters in reverse order making sure
+          to skip over the new line character at the end of the file.
+
+Part 3 - Destroying code
+    Q1 - Which file?
+        - I just went with my encryption.c. There was no preference, really. Both encrypt.c and decrypt.c are 
+            pretty much written the exact same way. So, I just picked the first that came to mind. 
+    Q2 - Easy to read?
+        - It's easy for me to read for a few reasons. For one, because I wrote it, I don't have trouble
+          reading it as I know what the changes were that I made. For another, syntax highlighting. If
+          Vim did not have this option then it would be difficult. If this was someone else's code that was
+          given to me then yeah, I would be spending time trying to format it so I could read it. However,
+          in several months time? It will be hard to read simply because I removed all my comments, so I'd 
+          have to try and understand what each function is doing
+    Q3. Convert hard to read code to easy to read code
+        - I definitely think it would be difficult if all the variable names and function names
+          weren't implicative. I would have to format each line, and then manually test each function
+          in the code to figure out what it does, adding comments as I go. Sounds like a very meticulous 
+          process..but I'm sure I'll have to do it someday..
+    Q4. Unwritten assumption
+        - Assuming that all characters are unsigned binary (IE there's a 0 in front so we can shift left 
+          and right without worrying about whether or not any character with decimal value 128 or higher is 
+          being encrypted/decrypted)
+    Q5. If assumption is not true
+        - The decryption process would fail

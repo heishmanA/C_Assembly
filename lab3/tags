@@ -1,0 +1,132 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+File	filesystem.h	/^struct File {$/;"	s
+File	install/filesystem.h	/^struct File {$/;"	s
+HF1	install/makefile	/^HF1 = mkdir.c pwd.c ls.c rmdir.c$/;"	m
+HF1	makefile	/^HF1 = mkdir.c pwd.c ls.c rmdir.c$/;"	m
+HF2	install/makefile	/^HF2 = cd.c free_memory.c insertdir.c $/;"	m
+HF2	makefile	/^HF2 = cd.c free_memory.c insertdir.c $/;"	m
+HF3	install/makefile	/^HF3 = finddupes.c mv.c file.c cat.c callfuncs.c$/;"	m
+HF3	makefile	/^HF3 = finddupes.c mv.c file.c cat.c callfuncs.c$/;"	m
+HF4	install/makefile	/^HF4 = cp.c rm.c findfile.c help.c dirent_f.c$/;"	m
+HF4	makefile	/^HF4 = cp.c rm.c findfile.c help.c dirent_f.c$/;"	m
+HF5	install/makefile	/^HF5 = dirprint.c dwp.c ch_root.c obliterate.c$/;"	m
+HF5	makefile	/^HF5 = dirprint.c dwp.c ch_root.c obliterate.c$/;"	m
+Tree	filesystem.h	/^typedef struct Tree {$/;"	s
+Tree	filesystem.h	/^}   Tree;$/;"	t	typeref:struct:Tree
+Tree	install/filesystem.h	/^typedef struct Tree {$/;"	s
+Tree	install/filesystem.h	/^}   Tree;$/;"	t	typeref:struct:Tree
+__FILE_SYSTEM_H	filesystem.h	4;"	d
+__FILE_SYSTEM_H	install/filesystem.h	4;"	d
+call_function	callfuncs.c	/^int call_function(int x, char *args[], Tree **wd, char *prog_name) {$/;"	f
+call_function	install/callfuncs.c	/^int call_function(int x, char *args[], Tree **wd, char *prog_name) {$/;"	f
+cat	cat.c	/^int cat(Tree *wd, char *file_name) {$/;"	f
+cat	install/cat.c	/^int cat(Tree *wd, char *file_name) {$/;"	f
+cat_read	cat_read.c	/^int cat_read(Tree *wd, char *file_name) {$/;"	f
+cat_read	install/cat_read.c	/^int cat_read(Tree *wd, char *file_name) {$/;"	f
+cd	cd.c	/^int cd(Tree **wd_ptr, char *dir_name) {$/;"	f
+cd	install/cd.c	/^int cd(Tree **wd_ptr, char *dir_name) {$/;"	f
+ch_root	ch_root.c	/^void ch_root(Tree *wd, char *new_name) {$/;"	f
+ch_root	install/ch_root.c	/^void ch_root(Tree *wd, char *new_name) {$/;"	f
+children	filesystem.h	/^    struct Tree *children;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+children	install/filesystem.h	/^    struct Tree *children;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+content	filesystem.h	/^    char content[256];$/;"	m	struct:File
+content	install/filesystem.h	/^    char content[256];$/;"	m	struct:File
+cp	cp.c	/^int cp(Tree *wd, char *source, Tree *dest, char *new_name) {$/;"	f
+cp	cpbackup.c	/^int cp(Tree *wd, char *source, Tree *dest, char *new_name) {$/;"	f
+cp	install/cp.c	/^int cp(Tree *wd, char *source, Tree *dest, char *new_name) {$/;"	f
+cp	install/cpbackup.c	/^int cp(Tree *wd, char *source, Tree *dest, char *new_name) {$/;"	f
+dir_print	dirprint.c	/^void dir_print(Tree *wd, char *wd_name) {$/;"	f
+dir_print	install/dirprint.c	/^void dir_print(Tree *wd, char *wd_name) {$/;"	f
+dirrent_f	dirent_f.c	/^int dirrent_f(Tree **wd, char *path) {$/;"	f
+dirrent_f	install/dirent_f.c	/^int dirrent_f(Tree **wd, char *path) {$/;"	f
+do_something	filesystembackup.c	/^int do_something(int x, char *args[], Tree **wd, char *prog_name) {$/;"	f
+do_something	install/filesystembackup.c	/^int do_something(int x, char *args[], Tree **wd, char *prog_name) {$/;"	f
+dwp	dwp.c	/^void dwp(Tree *wd) {$/;"	f
+dwp	install/dwp.c	/^void dwp(Tree *wd) {$/;"	f
+f_length	filesystem.h	/^    int f_length;$/;"	m	struct:Tree
+f_length	install/filesystem.h	/^    int f_length;$/;"	m	struct:Tree
+file	cat_write.c	/^int file(Tree **wd, char *file_name) {$/;"	f
+file	file.c	/^int file(Tree **wd, char *file_name) {$/;"	f
+file	install/cat_write.c	/^int file(Tree **wd, char *file_name) {$/;"	f
+file	install/file.c	/^int file(Tree **wd, char *file_name) {$/;"	f
+files	filesystem.h	/^    struct File files[64];$/;"	m	struct:Tree	typeref:struct:Tree::File
+files	install/filesystem.h	/^    struct File files[64];$/;"	m	struct:Tree	typeref:struct:Tree::File
+find_duplicate_files	cp.c	/^int find_duplicate_files(Tree *dest, char *name) {$/;"	f
+find_duplicate_files	install/cp.c	/^int find_duplicate_files(Tree *dest, char *name) {$/;"	f
+find_duplicates	finddupes.c	/^int find_duplicates(Tree *children, char *name) {$/;"	f
+find_duplicates	install/finddupes.c	/^int find_duplicates(Tree *children, char *name) {$/;"	f
+find_duplicates_files	cpbackup.c	/^int find_duplicates_files(Tree *dest, char *name) {$/;"	f
+find_duplicates_files	install/cpbackup.c	/^int find_duplicates_files(Tree *dest, char *name) {$/;"	f
+find_file	cat_write.c	/^int find_file(Tree *wd, char *file_name, struct File **f_ptr) {$/;"	f
+find_file	findfile.c	/^int find_file(Tree *wd, char *source) {$/;"	f
+find_file	install/cat_write.c	/^int find_file(Tree *wd, char *file_name, struct File **f_ptr) {$/;"	f
+find_file	install/findfile.c	/^int find_file(Tree *wd, char *source) {$/;"	f
+find_source	cpbackup.c	/^int find_source(Tree *wd,char *source) {$/;"	f
+find_source	install/cpbackup.c	/^int find_source(Tree *wd,char *source) {$/;"	f
+finddir	finddir.c	/^Tree **finddir(Tree **wd_children, char *target_name) {$/;"	f
+finddir	finddirbackup.c	/^Tree **finddir(Tree **wd_children, char *child_name) {$/;"	f
+finddir	install/finddir.c	/^Tree **finddir(Tree **wd_children, char *target_name) {$/;"	f
+finddir	install/finddirbackup.c	/^Tree **finddir(Tree **wd_children, char *child_name) {$/;"	f
+free_memory	free_memory.c	/^void free_memory(Tree **root) {$/;"	f
+free_memory	install/free_memory.c	/^void free_memory(Tree **root) {$/;"	f
+get_command	filesystem.c	/^int get_command(char *command) {$/;"	f
+get_command	filesystembackup.c	/^int get_command(char *command) {$/;"	f
+get_command	install/filesystem.c	/^int get_command(char *command) {$/;"	f
+get_command	install/filesystembackup.c	/^int get_command(char *command) {$/;"	f
+get_file_pos	file.c	/^int get_file_pos(Tree *wd, char *name) {$/;"	f
+get_file_pos	install/file.c	/^int get_file_pos(Tree *wd, char *name) {$/;"	f
+get_input	filesystem.c	/^void get_input(Tree **wd, char *prog_name) {$/;"	f
+get_input	filesystembackup.c	/^void get_input(Tree **wd, char *prog_name) {$/;"	f
+get_input	install/filesystem.c	/^void get_input(Tree **wd, char *prog_name) {$/;"	f
+get_input	install/filesystembackup.c	/^void get_input(Tree **wd, char *prog_name) {$/;"	f
+insert	insertdir.c	/^void insert(Tree **children_ptr, Tree *new_dir) {$/;"	f
+insert	install/insertdir.c	/^void insert(Tree **children_ptr, Tree *new_dir) {$/;"	f
+ls	install/ls.c	/^void ls(Tree *wd) {$/;"	f
+ls	ls.c	/^void ls(Tree *wd) {$/;"	f
+main	filesystem.c	/^int main(int argc, char *argv[]) {   $/;"	f
+main	filesystembackup.c	/^int main(int argc, char *argv[]) {   $/;"	f
+main	install/filesystem.c	/^int main(int argc, char *argv[]) {   $/;"	f
+main	install/filesystembackup.c	/^int main(int argc, char *argv[]) {   $/;"	f
+mkdir	install/mkdir.c	/^Tree *mkdir(Tree *parent, char *dir_name, char *prog_name) {$/;"	f
+mkdir	mkdir.c	/^Tree *mkdir(Tree *parent, char *dir_name, char *prog_name) {$/;"	f
+mv	install/mv.c	/^int mv(Tree **wd, char *target, char*destination, char *rename) {$/;"	f
+mv	mv.c	/^int mv(Tree **wd, char *target, char*destination, char *rename) {$/;"	f
+name	filesystem.h	/^    char name[30];$/;"	m	struct:File
+name	filesystem.h	/^    char name[33];$/;"	m	struct:Tree
+name	install/filesystem.h	/^    char name[30];$/;"	m	struct:File
+name	install/filesystem.h	/^    char name[33];$/;"	m	struct:Tree
+next_dir	filesystem.h	/^    struct Tree *next_dir;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+next_dir	install/filesystem.h	/^    struct Tree *next_dir;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+obliterate	install/obliterate.c	/^void obliterate(Tree **wd, char *wd_name) {$/;"	f
+obliterate	obliterate.c	/^void obliterate(Tree **wd, char *wd_name) {$/;"	f
+parent	filesystem.h	/^    struct Tree *parent;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+parent	install/filesystem.h	/^    struct Tree *parent;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+parse_input	filesystem.c	/^int parse_input(char *unparsed_args, Tree **wd, char * prog_name) {$/;"	f
+parse_input	filesystembackup.c	/^int parse_input(char *unparsed_args, Tree **wd, char * prog_name) {$/;"	f
+parse_input	install/filesystem.c	/^int parse_input(char *unparsed_args, Tree **wd, char * prog_name) {$/;"	f
+parse_input	install/filesystembackup.c	/^int parse_input(char *unparsed_args, Tree **wd, char * prog_name) {$/;"	f
+prev_dir	filesystem.h	/^    struct Tree *prev_dir;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+prev_dir	install/filesystem.h	/^    struct Tree *prev_dir;$/;"	m	struct:Tree	typeref:struct:Tree::Tree
+print_help	help.c	/^void print_help() {$/;"	f
+print_help	install/help.c	/^void print_help() {$/;"	f
+print_left	dirprint.c	/^void print_left(Tree *helper) {$/;"	f
+print_left	install/dirprint.c	/^void print_left(Tree *helper) {$/;"	f
+print_right	dirprint.c	/^void print_right(Tree *helper) {$/;"	f
+print_right	install/dirprint.c	/^void print_right(Tree *helper) {$/;"	f
+pwd	install/pwd.c	/^void pwd(Tree *wd_ptr, char *wd_name) {$/;"	f
+pwd	pwd.c	/^void pwd(Tree *wd_ptr, char *wd_name) {$/;"	f
+rm	install/rm.c	/^int rm(Tree **wd, char *source) {$/;"	f
+rm	rm.c	/^int rm(Tree **wd, char *source) {$/;"	f
+rmdir	install/rmdir.c	/^int rmdir(Tree **wd_children, char *target_name) {$/;"	f
+rmdir	install/rmdirbackup.c	/^int rmdir(Tree **wd_children, char *child_name) {$/;"	f
+rmdir	rmdir.c	/^int rmdir(Tree **wd_children, char *target_name) {$/;"	f
+rmdir	rmdirbackup.c	/^int rmdir(Tree **wd_children, char *child_name) {$/;"	f
+size	filesystem.h	/^    int size;$/;"	m	struct:Tree
+size	install/filesystem.h	/^    int size;$/;"	m	struct:Tree
+update_files	cpbackup.c	/^void update_files(Tree **wd, int start) {$/;"	f
+update_files	install/cpbackup.c	/^void update_files(Tree **wd, int start) {$/;"	f

@@ -1,0 +1,79 @@
+Aaron Heishman
+Systems I
+Lab6 Readme
+
+Part 1 Q1/Q2
+
+
+The following text covers both Q1 and Q2.
+
+-------------------------------------Q1. INSTRUCTIONS------------------------------------------
+1. Adding to the array
+    - Simply add a new label with a .string <string> into the .rodata similar to what has been shown below
+        with .S1 -> .S5 (string 1 -> string 5)
+        - Example : .S6:
+                        .string "This is going to be my new test case. Is it too long?"
+    - Add the new label <.S6> to the .string_array located on line 50 in the .data section [primarily here for part 2].
+        Make sure that you add .quad as the original intention was to have each string aligned on 8 byte addresses to function properly
+        - Example : .str_array:
+                        <other strings>
+                        .quad .S6
+    - Scroll down to line 74 and update the immediate value on line 73 because
+        this value corresponds to the final index of the array (length -1)
+        - Example if adding a new string
+            movq  $4, %rsi -> movq $5, %rsi
+
+2. Removing from the array
+    - Remove the desire label from the .rodata
+    - Remove the .quad <label> from the str_array on line 50
+    - subtract one value from the immediate value moved into %rsi on line 73
+        movq $5, %rsi -> movq $4, %rsi
+
+-----------------------------------Q2. Code--------------------------------------------------------------
+Comments / Code saved here as requested for Q1/ Q2
+
+#################################################################
+#   Eeach string corresponds to a different test case           #
+#   You can simply replace any of the strings in here           #
+#   without worrying about changing any other values in the code#
+#   If you'd like to add more string then make sure you         #
+#   create a label (.S6 maybe?) and then add that to the        #
+#   .str array [line 50] so that the program will use it        #
+#   and make sure to update the immediate value on line 73      #
+#################################################################
+.S1:
+    .string "I'm a big fan of small word. No like big word or good grammaer. Grammary too hard."
+
+.S2:
+    .string "I really hate how nice the weather is getting."
+
+.S3:
+    .string "What"
+
+.S4:
+    .string "Amazing, isn't it? With just the slighest touch the material wraps around the skin effortlessly"
+
+.S5:
+    .string "Mmm, ice cream so good!"
+-----------------------------------------------------------------
+
+#########################################################
+#   THIS ARRAY IS MEANT TO HOLD THE ADDRESSES OF EACH   #
+#     STRING IN .RODATA. IF YOU ADD/REMOVE A STRING     #
+#     THEN BE SURE TO ADD THE LABEL INTO THIS ARRAY     #
+#     AND UPDATE LINE 67 IN MAIN TO MATCH THE NEW       #
+#       FINAL INDEX VALUE TO WORK PROPERLY              #
+#########################################################
+.str_array:
+    .quad .S1   # Pointer to first string
+    .quad .S2   # Pointer to second string
+    .quad .S3   # pointer to third string
+    .quad .S4   # pointer to fourth string
+    .quad .S5   # pointer to fifth string
+-------------------------------------------------------------------
+    #####################################
+    #   CHANGE THE NUMBER ON LINE 67    #
+    #    IF YOU REMOVED OR ADDED        #
+    #           TO THE ARRAY            #
+    #####################################
+    movq    $4, %rsi                # move the final index into %rsi (UPDATE THIS VALUE IF YOU REMOVE OR ADD TO THE ARRAY)

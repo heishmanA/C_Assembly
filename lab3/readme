@@ -1,0 +1,170 @@
+Aaron Heishman
+Systems I - Lab 3 
+Readme File
+
+
+
+                                    (P3Q1) Program instructions
+---------------------------------------------------------------------------------------------------------
+
+    Upon starting the program you'll be greeted by the system and then asked to enter a username
+    Once you have given a name you'll see [username | root ~]$ (IE the "terminal" displayed to your screen
+    then you can enter the following commands to do as you wish
+    
+    1. mkdir [foldername]   
+                            - create a folder name in the current directory
+    2. file [name]          
+                            - use this to create a new file in the current directory, or overwrite another file
+    3. ls                   
+                            - list the files and folders of the current directory
+    4. pwd                  
+                            - Print to the console the current path of the working directory so you can navigate
+    5. cd [folder name]     
+                            - change directories to the specified directory (works for parent, siblings, subdirectories)
+    6. mv [folder name, destination folder, new name]
+                            - moves the specified folder to the destination folder. Changes the name of the folder if
+                              the argument is entered
+    7. cp [file name, destination folder, new name]
+                            - moves the specified file to the destination folder. Changes the name of the folder if
+                              the argument is entered
+    8. rmdir [folder name]
+                            - Removes a subfolder if the subfolder is empty
+    9. cat [file name]
+                            - Reads the contents of the specified file
+    10. rm [file name]
+                            - removes the specified file from the current working directory
+    11. help 
+                            - lists all the commands and their explanations
+    12. quit
+                            - quit the program (frees the memory)
+    13. dirp
+                            - Prints every sibling and parent from the current working directory to the root
+    14. dwp
+                            - prints the working directory path in reverse order, starting at the current directory to the root
+    15. cr [new name]
+                            - changes the name of the root to any name you wish
+    16. ob
+                            - caution: This command removes every single subdirectory of the current directory, excluding the files
+                              that are inside the subdirectory itself
+    17. dirent [path]
+                            - Run the program with a directory path as the command line arguments  to have the files of that directory
+                            read into and recreated at the root
+
+    
+    Note: All files are connected via variables in the makefile, so unless the headers.sh file doesn't get added for some reason
+          you should be able to compile it by simply writing "make -r"
+----------------------------------------------------------------------------------------------------------------------------
+
+
+
+P1 - File systems
+
+    P1Q1 - how is my file system structure different from nodes of linked structures discussed in class
+
+        The in class structures of linked lists that we discussed were a doubly linked list / terse list.
+        My structure is similar to that of the doubly linked list
+           
+           -   *next_dir | basically the *next of a list
+            -   *prev_dir | basically the *prev of a list
+            -   *parent | points to the parent node (different)
+            -   *children | points to the first child node (different)
+            -   files - Array of file structs (similar to data of linked list)
+            -   size - to keep track of how big the directories are 
+            -   f_last - this one is to keep track of where the "end" of my array is
+
+        To try and give an idea of what it looks like, here's a "drawing" of what
+        the file system would look like with root and 4 children.
+        I should have added a sentinal node to make it easier on myself, or just
+        have go with an array of pointers. However, I realized how useful both would've 
+        been when it was too late.
+
+                    null
+                     ^
+                     |
+            null <- root -> null
+                     ^
+                     |
+                     v
+           null <- child <-------> sibling <----> sibling ---- ->
+                     |               ^              |              
+                     |               |              |              
+                     V               |              V           
+                     |               |              null
+                   null              V
+                         null  <- child -> null
+
+    P1Q2 - Printing at root with no children
+            
+        I solved this by first displaying that the system was starting up
+        then asking for the user to enter their username
+        when that's done the program will print a "terminal"-like set of text
+        to the console.
+        It will look like this -> [username | root~]$
+        the user can then type pwd or ls to see if there is anything in the directory
+
+    P1Q3 - "Terse insertion \ deletion"
+        I definitely think it's possible, but requires a lot more work to make it possible
+        You would have to keep track of the parent node somehow, and that would probably
+        have to be done outside the insertion method (ie updating the parent node before inserting
+        into the file), but it would definitely be difficult. I imagine terse insertion would
+        be useful if you were trying to keep your files/dirs in some sort of order
+
+        Terse deletion is more than likely possible as well, but I didn't consider this one as much.
+        The issue is all the checks that have to be made, but I guess those could be made outside of
+        the deletion method first, and then go into it if everything passes the checks, updating
+        as needed.
+
+
+
+P2 - Making it your own
+    
+    P1Q1 - Extra commands
+    
+        All three of these were just something fun I want to do, but non-common reasons below
+
+        - dwp        - I thought this would neat because I happened to see that there's a similar command with 
+                       cat where if you write it backwards (tac) it reads the entire file backwards.
+                       I want to do this, but I figured I'd do something else for fun.
+        - ch_rot     - I added this because who wouldn't want to change their root name, and I thought it would be
+                        funny to be able to rename your root iamroot or something. I've been up for 24 hours so
+                        you know..
+        - obliterate - Ever get tired of that pesky rmdir command yelling at you for your files being full?
+                       Well, I did too, so I created a way to just completely obliterate all the files
+                       to try and see if I can find any segfaults, so why not add it here
+    P1Q2 - different data structras to help with the extra commands
+        
+        I did not add any extra data structures for my commands. I built my files around the structure 
+        that I currently have. I guess I tried to write it in a way that they could work together 
+        to reduce how much needs to be hardcoded. Although, I do not have enough time sadly to make
+        this happen the best way.
+
+    P1Q3 - dirprint
+        
+        I was trying to go for something neater than what I went with, but the idea was
+        to display the exact position of the directory compared to its sibling directories 
+        if they exist. I use recursion to try to display it from the root down to the current 
+        directory.
+
+
+P3 - Command line arguments
+    P3Q3 at the top
+
+    P3Q2 - Handling the 64
+
+        Well, I looked over getting each file in and created a counter that makes sure less that only 64 files are included
+
+    P3Q3 - linux commands for test directory
+        
+        To test the functionality, you can simply just write "filesystem ." to read in the current directory (ie all the c files and such)
+        You could also do "filesystem .." to read in the previous files
+        But if you need to make a file, just simply use "mkdir [file name]" then "cd [file name]" and write a bunch of files
+        with your favorite test editor. When finished, navigate back to the previous file "cd .." and run the program with
+        "filesystem [file name]"
+        When inside, just enter your name and type "ls" and you'll see all your files.
+
+    P3Q4 - Handling incorrect input
+
+        I check to make sure that the directory is opened before reading to the file, and then printing to the console that
+        the directrory cannot be found, while also printing the path.
+
+
