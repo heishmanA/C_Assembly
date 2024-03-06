@@ -9,3 +9,6 @@ All projects related to Systems I that I worked on during my OSU CSE Systems I c
 ## Known bugs
 - Lab 3 has a few bugs as I was not familiar with pointers at the time of writing it
 - Primarily when creating and deleting new "folders"
+
+## Update
+  Added the projects related to Systems 2
