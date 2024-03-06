@@ -1,0 +1,41 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+BUFFER_SIZE	backups/buffer.c	10;"	d	file:
+CC	makefile	/^CC=gcc$/;"	m
+CFLAGS	makefile	/^CFLAGS=-g3 -std=gnu11 ${WARNS}$/;"	m
+HISTORY_SIZE	backups/cmdlog copy.h	6;"	d
+HISTORY_SIZE	cmdlog.h	5;"	d
+LD	makefile	/^LD=ld$/;"	m
+LIBS	makefile	/^LIBS=$/;"	m
+MAINFILES	makefile	/^MAINFILES=shell.c shell.h cmdlog.c cmdlog.h$/;"	m
+MAX_LINE	cmdlog.h	3;"	d
+SUPPFILES	makefile	/^SUPPFILES=headers.awk headers.sh tags README.txt makefile$/;"	m
+WARNS	makefile	/^WARNS=-Wall -pedantic -Wextra$/;"	m
+ZIP	makefile	/^ZIP= zip -r ${ZIPNAME}$/;"	m
+ZIPNAME	makefile	/^ZIPNAME=lab5.zip$/;"	m
+buffer	backups/buffer.c	/^static char buffer[BUFFER_SIZE];$/;"	v	file:
+check_input_buffer	cmdlog.c	/^int check_input_buffer(char inputBuffer[]) {$/;"	f
+command_count	cmdlog.c	/^int command_count = 0;$/;"	v
+command_file_path	shell.c	/^char *command_file_path; \/* must be global as exitting the program is done in setup*\/$/;"	v
+command_history	cmdlog.c	/^char *command_history[HISTORY_SIZE];$/;"	v
+copy_input_to_history	cmdlog.c	/^void copy_input_to_history(char inputBuffer[]) {$/;"	f
+free_memory	cmdlog.c	/^void free_memory() {$/;"	f
+front_command_index	cmdlog.c	/^int front_command_index = 0;$/;"	v
+get_command_count	cmdlog.c	/^int get_command_count() {$/;"	f
+get_command_index	cmdlog.c	/^int get_command_index(char *input, int len) {$/;"	f
+get_file_path	cmdlog.c	/^char *get_file_path() {$/;"	f
+get_previous_command	cmdlog.c	/^char *get_previous_command(int index) {$/;"	f
+handle_SIGINT	backups/buffer.c	/^void handle_SIGINT() {$/;"	f
+handle_SIGINT	shell.c	/^void handle_SIGINT() {$/;"	f
+main	backups/buffer.c	/^int main() {$/;"	f
+main	shell.c	/^int main(void) {$/;"	f
+next_command_index	cmdlog.c	/^int next_command_index = 0;$/;"	v
+print_commands	cmdlog.c	/^void print_commands() {$/;"	f
+setup	shell.c	/^void setup(char inputBuffer[], char *args[], int *background) {$/;"	f
+sig_flag	shell.c	/^int sig_flag = 0; \/* signal flag for control c input*\/$/;"	v
+try_read_file	cmdlog.c	/^void try_read_file(char *path) {$/;"	f
+try_write_file	cmdlog.c	/^void try_write_file(char *path) { $/;"	f
